@@ -50,7 +50,7 @@ contract Digital {
     function displayHash(uint16 hashNo) public view returns (string memory) {
         // check if value is not empty
         require(
-            keccak256(abi.encodePacked((mapOfHash[msg.sender][hashNo]))) ==
+            keccak256(abi.encodePacked((mapOfHash[msg.sender][hashNo]))) !=
                 keccak256(abi.encodePacked(("")))
         );
         return mapOfHash[msg.sender][hashNo];
