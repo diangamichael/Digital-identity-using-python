@@ -24,7 +24,7 @@ except:
 
 
 abi = json.loads('[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"string","name":"hashOfIpfs","type":"string"},{"internalType":"uint16","name":"hashNo","type":"uint16"}],"name":"addHash","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"hashOfIpfs","type":"string"},{"internalType":"uint16","name":"hashNo","type":"uint16"}],"name":"deleteHash","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"destroy","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint16","name":"hashNo","type":"uint16"}],"name":"displayHash","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"hashOfIpfs","type":"string"},{"internalType":"string","name":"currentHash","type":"string"},{"internalType":"uint16","name":"hashNo","type":"uint16"}],"name":"updateHash","outputs":[],"stateMutability":"nonpayable","type":"function"}]')
-address = web3.toChecksumAddress('0x4CEdbE98a2e26Da07Fc86B79F82A6fd52309542B')
+address = web3.toChecksumAddress('0x833d405d12b7260f351FfD9037Fb4Fa8b67F13Fd')
 contract = web3.eth.contract(address=address, abi=abi)
 
 print(contract.functions.addHash('adfasf', 1).call())
@@ -182,12 +182,14 @@ class GetHash:
                                command=self.get_hash).pack()
 
     def get_hash(self):
+        self.elment = 0
         children_widgets = self.frame.winfo_children()
         for child_widget in children_widgets:
             if child_widget.winfo_class() == 'Entry':
                 self.el = child_widget.get()
                 self.elment = np.uint16(self.el)
         self.hashVal = contract.functions.displayHash(int(self.elment)).call()
+#        self.hashVal = 'QmVMZ2RAU7BheQzXqfVG5x2TvcjwHyxZK1nKAcoTyY6gZD'
         webbrowser.open(f'https://gateway.ipfs.io/ipfs/{self.hashVal}', new=2)
         self.myLabel = Label(
             self.frame, text=f'file hash sucessfully got ---> {self.hashVal}').pack()
